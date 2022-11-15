@@ -717,6 +717,9 @@ namespace RE
 		{
 			using func_t = decltype(&TESObjectREFR::IsInWater);
 			REL::Relocation<func_t> func{ REL::ID(315318) };
+			return func(this);
+		}
+
 		[[nodiscard]] bool IsCrimeToActivate()
 		{
 			using func_t = decltype(&TESObjectREFR::IsCrimeToActivate);

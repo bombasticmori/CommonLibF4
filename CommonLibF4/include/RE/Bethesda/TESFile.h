@@ -106,6 +106,7 @@ namespace RE
 				return true;
 			}
 			return false;
+		}
 		[[nodiscard]] bool CloseTES(bool a_forceClose)
 		{
 			using func_t = decltype(&TESFile::CloseTES);

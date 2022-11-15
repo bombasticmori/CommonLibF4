@@ -132,6 +132,11 @@ namespace RE
 		{
 			for (auto& file : files) {
 				if (_stricmp(file->filename, a_modName.data()) == 0) {
+					return file;
+				}
+			}
+			return nullptr;
+		}
 		TESForm* LookupForm(std::uint32_t a_rawFormID, std::string_view a_modName)
 		{
 			auto file = LookupModByName(a_modName);
