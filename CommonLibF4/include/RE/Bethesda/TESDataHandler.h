@@ -132,10 +132,100 @@ namespace RE
 		{
 			for (auto& file : files) {
 				if (_stricmp(file->filename, a_modName.data()) == 0) {
+		TESForm* LookupForm(std::uint32_t a_rawFormID, std::string_view a_modName)
+		{
+			auto file = LookupModByName(a_modName);
+			if (!file || file->compileIndex == 0xFF) {
+				return nullptr;
+			}
+
+			std::uint32_t formID = file->compileIndex << 24;
+			formID += file->smallFileCompileIndex << 12;
+			formID += a_rawFormID;
+
+			return TESForm::GetFormByID(formID);
+		}
+
+		template <class T>
+		T* LookupForm(std::uint32_t a_rawFormID, std::string_view a_modName)
+		{
+			auto form = LookupForm(a_rawFormID, a_modName);
+			if (!form) {
+				return nullptr;
+			}
+
+			return form->Is(T::FORM_ID) ? form->As<T>() : nullptr;
+		}
+
+		const TESFile* LookupModByName(std::string_view a_modName)
+		{
+			for (auto& file : files) {
+				if (a_modName.size() == strlen(file->filename) &&
+					_strnicmp(file->filename, a_modName.data(), a_modName.size()) == 0) {
 					return file;
 				}
 			}
 			return nullptr;
+		}
+
+		std::optional<std::uint8_t> GetModIndex(std::string_view a_modName)
+		{
+			auto mod = LookupModByName(a_modName);
+			return mod ? std::make_optional(mod->compileIndex) : std::nullopt;
+		}
+
+		const TESFile* LookupLoadedModByName(std::string_view a_modName)
+		{
+			for (auto& file : compiledFileCollection.files) {
+				if (a_modName.size() == strlen(file->filename) &&
+					_strnicmp(file->filename, a_modName.data(), a_modName.size()) == 0) {
+					return file;
+				}
+			}
+			return nullptr;
+		}
+
+		const TESFile* LookupLoadedModByIndex(std::uint8_t a_index)
+		{
+			for (auto& file : compiledFileCollection.files) {
+				if (file->compileIndex == a_index) {
+					return file;
+				}
+			}
+			return nullptr;
+		}
+
+		std::optional<std::uint8_t> GetLoadedModIndex(std::string_view a_modName)
+		{
+			auto mod = LookupLoadedModByName(a_modName);
+			return mod ? std::make_optional(mod->compileIndex) : std::nullopt;
+		}
+
+		const TESFile* LookupLoadedLightModByName(std::string_view a_modName)
+		{
+			for (auto& smallFile : compiledFileCollection.smallFiles) {
+				if (a_modName.size() == strlen(smallFile->filename) &&
+					_strnicmp(smallFile->filename, a_modName.data(), a_modName.size()) == 0) {
+					return smallFile;
+				}
+			}
+			return nullptr;
+		}
+
+		const TESFile* LookupLoadedLightModByIndex(std::uint16_t a_index)
+		{
+			for (auto& smallFile : compiledFileCollection.smallFiles) {
+				if (smallFile->smallFileCompileIndex == a_index) {
+					return smallFile;
+				}
+			}
+			return nullptr;
+		}
+
+		std::optional<std::uint16_t> GetLoadedLightModIndex(std::string_view a_modName)
+		{
+			auto mod = LookupLoadedLightModByName(a_modName);
+			return mod ? std::make_optional(mod->smallFileCompileIndex) : std::nullopt;
 		}
 
 		// members
