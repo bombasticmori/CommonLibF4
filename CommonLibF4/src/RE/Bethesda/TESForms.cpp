@@ -19,4 +19,9 @@ namespace RE
 
 		return water;
 	}
+
+	bool TESForm::IsDynamicForm() const noexcept
+	{
+		return formID >= 0xFF000000;
+	}
 }

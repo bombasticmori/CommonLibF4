@@ -5,3 +5,5 @@
 CMakeUserPresets.json
 /out*
 /.vs*
+/AddressLibDecoder/*.bin
+/CommonLibF4/Scripts/*
