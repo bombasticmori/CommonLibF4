@@ -712,6 +712,8 @@ namespace RE
 		virtual std::uint32_t GetFilledSlotsImpl() const { return static_cast<std::uint32_t>(-1); }                                                                                                                                   // 48
 		virtual float GetDesirability([[maybe_unused]] TBO_InstanceData* a_instanceData, [[maybe_unused]] const TESForm* a_user) const { return 0.0F; }                                                                               // 49
 
+		bool IsDynamicForm() const noexcept;
+
 		static void AddCompileIndex(std::uint32_t& a_id, TESFile* a_file)
 		{
 			using func_t = decltype(&TESForm::AddCompileIndex);
@@ -2268,7 +2270,41 @@ namespace RE
 			float data;           // 08
 		};
 		static_assert(sizeof(KEYWORD_DATA) == 0x10);
+		
+		bool IsCleared() const
+		{
+			return cleared;
+		}
 
+		bool IsChild(const BGSLocation* a_possibleChild) const
+		{
+			if (a_possibleChild) {
+				for (auto it = a_possibleChild->parentLoc; it; it = it->parentLoc) {
+					if (this == it) {
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+
+		bool IsParent(const BGSLocation* a_possibleParent) const
+		{
+			if (a_possibleParent) {
+				for (auto it = parentLoc; it; it = it->parentLoc) {
+					if (a_possibleParent == it) {
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+
+		bool IsLoaded() const
+		{
+			return loadedCount > 0;
+		}
+		
 		// members
 		BGSLocation* parentLoc;                                                 // 050
 		TESFaction* unreportedCrimeFaction;                                     // 058

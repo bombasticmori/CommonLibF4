@@ -1,0 +1,5 @@
+Possibly Identified ID's:
+Note: Take any with a grain of salt, I have no idea what I'm doing.
+
+TESObjRefr_GetCurrentLocation
+862522	30A2CD8

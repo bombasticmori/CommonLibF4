@@ -9,4 +9,20 @@ namespace RE
 		Dtor();
 		stl::memzero(this);
 	}
+	TESBoundObject* TESObjectREFR::GetBaseObject()
+	{
+		return data.objectReference;
+	}
+	const TESBoundObject* TESObjectREFR::GetBaseObject() const
+	{
+		return data.objectReference;
+	}
+	
+	//ID Identification Test
+	BGSLocation* TESObjectREFR::GetCurrentLocation() const
+	{
+		using func_t = decltype(&TESObjectREFR::GetCurrentLocation);
+		REL::Relocation<func_t> func{ REL::ID(862522) };
+		return func(this);
+	}
 }

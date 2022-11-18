@@ -31,6 +31,7 @@ set(SOURCES
 	include/RE/Bethesda/BGSTextureSet.h
 	include/RE/Bethesda/BSBound.h
 	include/RE/Bethesda/BSContainer.h
+	include/RE/Bethesda/BSCoreTypes.h
 	include/RE/Bethesda/BSExtraData.h
 	include/RE/Bethesda/BSFadeNode.h
 	include/RE/Bethesda/BSFixedString.h
@@ -120,6 +121,7 @@ set(SOURCES
 	include/RE/Bethesda/Script.h
 	include/RE/Bethesda/SendHUDMessage.h
 	include/RE/Bethesda/Settings.h
+	include/RE/Bethesda/Sexes.h
 	include/RE/Bethesda/SplineUtils.h
 	include/RE/Bethesda/TESBoundAnimObjects.h
 	include/RE/Bethesda/TESBoundObjects.h
@@ -180,6 +182,7 @@ set(SOURCES
 	include/RE/NetImmerse/NiFile.h
 	include/RE/NetImmerse/NiFlags.h
 	include/RE/NetImmerse/NiFrustum.h
+	include/RE/NetImmerse/NiMath.h
 	include/RE/NetImmerse/NiMatrix3.h
 	include/RE/NetImmerse/NiNode.h
 	include/RE/NetImmerse/NiObject.h
